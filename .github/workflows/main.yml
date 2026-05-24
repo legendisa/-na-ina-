@@ -15,6 +15,8 @@ jobs:
           
       - name: Build with Buildozer
         run: |
+          # SDK ve NDK kurulumunu zorla tetiklemek için buildozer'i bir kez çalıştırıp durduruyoruz
+          buildozer android debug || true
           buildozer android debug
           
       - name: Upload artifacts
@@ -22,4 +24,3 @@ jobs:
         with:
           name: Ina-APK
           path: bin/*.apk
-          
