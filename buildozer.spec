@@ -1,4 +1,5 @@
 [app]
+android.permissions = INTERNET
 title = InaAsistan
 package.name = inaasistan
 package.domain = org.ina
