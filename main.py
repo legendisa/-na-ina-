@@ -1,25 +1,17 @@
 from kivy.app import App
 from kivy.uix.button import Button
-from jnius import autoclass
-
-# Android TTS sınıflarını çağır
-PythonActivity = autoclass('org.kivy.android.PythonActivity')
-TextToSpeech = autoclass('android.speech.tts.TextToSpeech')
-Locale = autoclass('java.util.Locale')
+from kivy.utils import platform
 
 class InaApp(App):
     def build(self):
-        # Ses motorunu başlat
-        self.tts = TextToSpeech(PythonActivity.mActivity, None)
-        self.tts.setLanguage(Locale.TR) # Türkçe dil ayarı
-        
-        btn = Button(text="Konuştur")
-        btn.bind(on_release=self.konus)
-        return btn
+        return Button(text="Ses sistemi henüz aktif değil", on_release=self.test_basit)
 
-    def konus(self, instance):
-        metin = "Sisteme başarıyla entegre edildim. Artık seninle konuşabiliyorum."
-        self.tts.speak(metin, TextToSpeech.QUEUE_FLUSH, None)
+    def test_basit(self, instance):
+        if platform == 'android':
+            # Burada TTS kodları gelecek, şu an sadece test ediyoruz
+            instance.text = "Android tespit edildi!"
+        else:
+            instance.text = "Bilgisayardasın, TTS çalışmaz."
 
 if __name__ == '__main__':
     InaApp().run()
